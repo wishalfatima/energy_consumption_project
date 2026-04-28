@@ -1,0 +1,24 @@
+
+MODEL: Global Recursive LightGBM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Metric                                    Value
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Households                          17,547
+Training Data                             2023 (365 days)
+Prediction Period                         2024 (366 days - leap year)
+Total Predictions                         6,422,202
+Number of Models                          1 (Global)
+Prediction Method                         Recursive (day by day)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Direct Model MAE                          5.3218
+Global Recursive Model MAE                4.3494
+Overall Improvement                       0.9724 (18.3%)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PER-CLUSTER PERFORMANCE:
+ Cluster         Type  Households  Direct MAE  Global Recursive MAE  Improvement  Improvement %
+       0   Low/Vacant         444      1.6732                1.7219      -0.0487        -2.9096
+       1       Medium       14620      3.1541                2.7435       0.4106        13.0174
+       2 Intermittent          66      0.7151                0.8120      -0.0969       -13.5455
+       3         High        2417     18.8604               14.6427       4.2177        22.3627
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

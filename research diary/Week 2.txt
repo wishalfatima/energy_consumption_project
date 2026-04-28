@@ -1,0 +1,64 @@
+Week 2: Data Preprocessing & Feature Engineering
+
+This week I focused on transforming the insights from exploratory data analysis into actionable preprocessing steps. I divided the work int o two main phases: data cleaning to ensure numerical stability, and feature engineering to create meaningful inputs for clustering. To gain deeper insights and methodological guidance, we reviewed several research papers on time series forecasting and clustering. These studies informed our approach to feature engineering, model selection, and evaluation strategies.
+We found this paper helpful and relatable to our project: 
+"Clustering of Time Series Data—A Survey" by T. Warren Liao (2005)
+This is a simple paper that explains three main approaches to clustering time series:
+Raw-data-based (clustering directly on the time series values)
+Feature-based (extracting characteristics first, then clustering) – (this is our focus)
+Model-based (using model parameters like ARIMA coefficients)
+This paper helped us understand why feature-based clustering works well for large datasets like ours. 
+Consumption Distribution Analysis
+I used Descriptive statistics and visualizations to understand consumption behavior across households. The distribution was found to be strongly right-skewed, with most values concentrated at lower consumption levels.
+Mean consumption ≈ 10.5 kWh; median ≈ 7.4 kWh
+Majority of values fall between 0–30 kWh/day
+Extreme values exceed 1,000 kWh, indicating significant outliers
+This highlighted the presence of both typical and extreme consumption patterns.
+Household Segmentation Insights
+I observed a clear separation between normal and high-consumption households. Using an average consumption threshold, I analyzed distribution of energy consumption, mean and variance. I observed that their were large variation across households and presence of high-consumption outliers.
+~99% of households fall into a normal consumption range
+A small minority (~0.7%) exhibits significantly higher usage
+
+Data Quality Assessment
+And then to access the quality of the data I analyzed the data to identify quality issues. And I found out that:
+No missing or negative values were found
+A large number of zero-consumption days were present
+154 households recorded zero consumption throughout the year
+Some extreme values (>100 kWh) were identified
+A small number of duplicate consumption patterns were observed
+This helped me found out important characteristics such as inactive households and extreme outlier.
+Data Cleaning
+A key decision involved handling the 154 households with constant (zero) consumption. Instead of removing them, I decided to apply a micro-noise injection approach by assigning very small values to their standard deviation and coefficient of variation. This preserved these households as a meaningful group while avoiding division-by-zero issues.
+The dataset was in wide format(columns = dates), which is not suitable for forecasting. I converted it into long format.
+Feature Engineering
+A total of 11 statistical features were initially extracted from the 2023 time series for each household. These features captured different aspects of consumption behavior, including:
+Central tendency (mean, min, max)
+Variability (standard deviation, range, coefficient of variation)
+Distribution shape (skewness)
+Data sparsity (zero days, zero percentage)
+Percentiles (10th and 90th)
+To address strong skewness in the data, a log transformation was applied to key features such as mean and maximum consumption. This significantly improved distribution symmetry and made the data more suitable for clustering. The feature set was later expanded to 13 features.
+The initial features that I selected were:
+Mean_consumption (Average daily consumption)
+std_consumption (Variability)
+max_consumption (Highest consumption day)
+min_consumption (Lowest consumption day)
+range_consumption	(Max - Min (total spread))
+cv (Coefficient of variation (std/mean))
+skewness (Asymmetry of pattern)
+zero_days (Count of zero consumption days)
+zero_percentage (% of zero days)
+p90 (90th percentile)
+p10 (10th percentile)
+
+I applied Log Transform than which  created log-transformed versions to handle skewness:
+mean_consumption_log (from mean_consumption)
+max_consumption_log (from max_consumption)
+So now I  had 13 total features (11 original + 2 log versions).
+
+Key Achievements
+Completed data cleaning with no remaining missing values
+Extracted and refined features from time series data
+Challenges
+Extreme value ranges made visualization and interpretation more difficult.
+Determining which anomalies required cleaning versus retention required careful consideration.

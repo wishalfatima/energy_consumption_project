@@ -1,0 +1,5 @@
+Cluster,Type,Households,Direct MAE,Recursive MAE,Improvement,Improvement %
+0,Low/Vacant,444,1.6732,1.52,0.1532,9.2
+1,Medium,14620,3.1541,2.98,0.1741,5.5
+2,Intermittent,66,0.7151,0.65,0.0651,9.1
+3,High,2417,18.8604,15.42,3.4404,18.2

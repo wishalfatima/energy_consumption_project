@@ -1,0 +1,23 @@
+Week 7: Forecasting Evaluation & Improvement Attempt
+This week I focused on improving the forecasting results. For this I tried different models. XG boost and Light GBM Recursive model.
+Improvement Attempt — XGBoost
+An alternative model using XGBoost was tested with an expanded feature set, including rolling statistics and cyclical seasonal features. Due to computational constraints, the model was trained on a reduced subset of the data.
+This approach resulted in worse performance than the baseline. The primary issue was the reduction in training data, which negatively impacted model learning. This highlighted the importance of maintaining sufficient data when working with large-scale time series problems.
+Improvement attempt Recursive Forecasting
+After experimenting XG-Boost and discussion with my teammates I decided to apply Light GBM again but with recursive approach. In this approach each prediction is fed back into the model as input for future predictions. The feature set was extended to include additional lag and rolling statistics, providing a richer representation of recent consumption history. A 60-day historical window from the end of 2023 was used to initialize the forecasting process, ensuring sufficient data for lag and rolling features.
+Implementation and Execution
+A recursive forecasting function was implemented to generate predictions sequentially for each household. For every day in 2024:
+Features were constructed from historical data and calendar variables
+A prediction was generated and constrained to non-negative values
+The prediction was added to the history for subsequent steps
+This process was applied to all households, enabling full-year forecasts.
+Model Evaluation
+The recursive LightGBM model achieved performance comparable to the best previous model:
+Performance improvements were observed in low- and medium-consumption clusters
+High-consumption households remained the most difficult to predict
+Key Achievements
+Conducted and analyzed an alternative modeling approach
+Challenges
+High-consumption households remained difficult to predict accurately
+The XGBoost experiment showed MAE worse than the baseline.
+Implementation of Recursive Light GBM

@@ -1,0 +1,17 @@
+Category,Feature Name,Description
+Calendar,day_of_year,Day number in year (1-366)
+Calendar,day_of_week,"Day of week (0=Monday, 6=Sunday)"
+Calendar,month,Month (1-12)
+Calendar,weekend,Weekend indicator (1=Saturday/Sunday)
+Lag,lag_1,Consumption 1 day ago
+Lag,lag_2,Consumption 2 days ago
+Lag,lag_3,Consumption 3 days ago
+Lag,lag_7,Consumption 7 days ago (1 week)
+Lag,lag_14,Consumption 14 days ago (2 weeks)
+Lag,lag_28,Consumption 28 days ago (4 weeks)
+Lag,lag_30,Consumption 30 days ago (~1 month)
+Rolling Mean,rolling_mean_7,Average consumption of last 7 days
+Rolling Mean,rolling_mean_14,Average consumption of last 14 days
+Rolling Mean,rolling_mean_30,Average consumption of last 30 days
+Trend,diff_7,Difference from consumption 7 days ago
+Trend,trend_7,7-day rolling mean trend direction

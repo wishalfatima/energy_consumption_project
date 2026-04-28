@@ -1,0 +1,31 @@
+Week 1: Project setup & data exploration
+
+The first week I focused mainly on building the theoretical foundation and setting up the project environment. The main objective was to understand the problem, review relevant literature, and prepare a structured workflow before starting implementation. I downloaded the data set and performed initial checks. We also made our group, got registered on Moodle and decided how would we work on this project.
+Understanding the Problem & Setup
+
+I started by carefully reading the assignment tasks and requirements. The project involved two main components:
+
+1. Clustering households based on energy consumption behavior
+2. Forecasting future energy consumption
+
+At first, I was confused about how clustering and forecasting relate to each other.  The main challenge for me was understanding how clustering helps forecasting.
+I researched and understood that clustering groups similar time series, allowing models to learn better patterns.
+
+I studied what time series data is, concepts like trend, seasonality, and patterns. I realized that order of data matters, past values influence future values.
+
+A key constraint identified early was the strict separation of training and evaluation data. The dataset structure and evaluation metric (average MAE) were also clearly understood.
+I tried to research  different time series clustering approaches. I found out that Feature-based clustering as a more scalable approach. Key statistical features such as mean, standard deviation, coefficient of variation, and percentiles were identified as useful representations.
+I created a project folder to organize all the tasks and files. I developed the environment to configured with all required libraries, including Pandas, NumPy, Scikit-learn. I downloaded the dataset and verified to ensure correct format and structure.
+Data Loading and Verification
+Both the 2023 and 2024 datasets were loaded using Pandas, with household IDs set as the index. Initial checks confirmed that the datasets were structurally consistent and aligned.
+2023 data: 17,547 households with 365 daily readings
+2024 data: 17,547 households with 366 daily readings (leap year)
+Household IDs were consistent across both datasets
+
+These checks ensured the dataset was reliable for further analysis.
+Key Achievements
+Fully understood project requirements and constraints
+Set up development environment and verified dataset
+Challenges
+Understanding the differences between forecasting strategies required careful study
+Choosing between raw time series and feature-based clustering required evaluation of scalability trade-offs

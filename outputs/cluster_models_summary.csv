@@ -1,0 +1,5 @@
+cluster,samples,households,validation_mae,status
+0,149628,444,0.505,trained
+1,4926940,14620,1.5684,trained
+2,22242,66,0.3069,trained
+3,814529,2417,4.9437,trained

@@ -1,0 +1,31 @@
+Week 5: Forecasting Global Model
+
+This week focused on implementing the forecasting model. I had to decide different forecasting models to work with. I first chose the Light GBM. I used the Light GBM model for forecasting. A single model was trained using all households to establish a performance benchmark for comparison with more advanced approaches.
+Model Training
+A LightGBM model was trained on the full 2023 dataset, consisting of over 5.9 million samples. The data was split into training and validation sets, and early stopping was applied to prevent overfitting. The model achieved a validation MAE of approximately 2.06 kWh/day. I analyzed the result and found out that seasonal patterns (day_of_year) and recent consumption (lag features) were the most influential predictors.
+Prediction Generation
+Predictions for 2024 were generated using a direct forecasting approach. A feature matrix was constructed for all households and all days of 2024, using lag values derived from the end of 2023 and calendar-based features. Batch prediction was applied efficiently across the full dataset, and all predicted values were constrained to be non-negative.
+Model Configuration:
+Global Model: LightGBM (1 model, all 17,547 households)
+Features: 10 (4 calendar + 6 lags)
+Prediction method: Direct (all 366 days at once)
+
+MAE calculation per household. Computed MAE for each of 17,547 households
+Global model evaluation. Average MAE = 5.32
+
+Model Evaluation
+The global model achieved an average MAE of approximately 5.32 kWh/day across all households. Performance varied significantly across clusters:
+Lower errors in low-consumption clusters
+Significantly higher error in the high-consumption cluster
+This highlighted the limitation of using a single model for heterogeneous data.
+
+Key Achievements
+Trained a global LightGBM model on large-scale data
+Generated full 2024 predictions for all households
+Established a baseline performance for comparison
+Completed full evaluation across all households
+Challenges
+Managing memory for large feature matrices
+High error in high-consumption households reduced overall performance
+Time consuming
+Optimizing the MAE score

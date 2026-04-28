@@ -1,0 +1,40 @@
+Week 3: Clustering implementation 
+
+This week was focused on performing clustering and determining the optimal number of clusters for the dataset. The feature engineering process significantly improved data quality and representation. In particular, the log transformation effectively corrected skewness, resulting in a more balanced and informative feature set. 
+Feature Selection and Normalization
+I started with Feature normalization, applied standard scalar to all features. I than finalized my features for clustering, I decided to go for 6 features for clustering. I selected 6 non-correlated features for clustering. The final set of 6 features selected for clustering were:
+mean_consumption_log
+std_consumption
+cv
+zero_percentage
+skewness
+range_consumption
+
+Correlation analysis was performed to remove redundant features and reduce dimensionality. Highly correlated features were eliminated to avoid duplication of information.
+All features were standardized using z-score normalization to ensure equal contribution during clustering. Missing skewness values (from constant households) were imputed using the feature mean.
+Data Preparation and Setup
+Before clustering, the feature matrix was checked for missing values. NaN values in the skewness feature (originating from constant households) were imputed using the mean. This ensured a clean dataset with no missing or invalid values. I selected K-Mean algorithm for clustering. K-Means was configured with standard parameters to ensure stable and reproducible results.
+Optimal k Evaluation
+After feature normalization, selecting features for clusters, the next task was to find optimal value of k. I tested different values of k
+Clustering was performed for k values ranging from 2 to 14, and three evaluation metrics were used:
+Inertia (Elbow Method): Indicated a clear inflection point around k=4
+Silhouette Score: Highest values observed for k = 3 and k = 4
+Davies-Bouldin Index: Achieved the lowest value at k = 4
+
+ I compared metrics, analyzed trade off between k = 3 and k=4. I finalized value of k based on the metrics. I chose k =4.
+Although k=3 produced a marginally higher silhouette score,  I selected k=4, which also had a better silhouette score and also its substantially lower Davies-Bouldin score, indicating more compact and well-separated clusters, which is critical for building accurate cluster-specific forecasting models
+
+The combination of these metrics provided strong evidence that k = 4 offers the best balance between cluster compactness and separation.
+Final Clustering and Interpretation
+K-Means was applied with k = 4, resulting in four distinct household groups:
+Sparse/Low Activity: Very low and irregular consumption
+Normal Consumers: Majority group with stable, regular usage
+Inactive (Ghost): Near-zero consumption throughout the year
+High Consumers: Significantly higher usage with greater variability
+The cluster assignments were saved for use in the forecasting phase.
+Key Achievements
+Identified optimal number of clusters (k = 4) using multiple metrics
+Successfully segmented households into meaningful groups
+Challenges
+Running clustering across multiple k values was computationally intensive
+Close performance between k = 3 and k = 4 required careful interpretation of metrics

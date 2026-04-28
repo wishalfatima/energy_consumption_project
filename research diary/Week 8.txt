@@ -1,0 +1,17 @@
+
+Week 8 : Final Results & Project Completion
+After Forecasting attempt we did a team meeting  to finalize and compare our results. Also from the class which we had for presenting our Forecasting results I observed that most of the class fellows  had the same result as us. So, I decided to stick with my current approach and result. However, among the team, my other team member had got the better MAE results which we decided to present in the final presentation. I also finalize all the results, completed making the report and update research dairy in the last week. I also had uploaded the code I did on my GitHub profile which I have shared the link below.  This is only my work, the final submission has been submitted and presented in the report.
+Final Comparison and Insights
+A comprehensive comparison of all models was conducted:
+Best performance: Cluster-based LightGBM
+Similar performance: Recursive LightGBM
+Baseline: Global LightGBM
+Lowest performance: XGBoost with reduced training data
+Key Achievements
+Successfully implemented recursive forecasting for all households
+Completed full model comparison and evaluation
+Finalized all project documentation and outputs
+Challenges
+Error accumulation over long forecasting horizons limited improvements
+Recursive forecasting required significant computational resources
+Forecasting step was among the most time taking step.

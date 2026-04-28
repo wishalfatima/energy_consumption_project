@@ -1,0 +1,32 @@
+Week 4: Visualizing Clusters & Transition to Forecasting
+This week focused on visualizing cluster and  consolidating clustering results and preparing for the forecasting phase. As it was said to prepare our final clustering result so we can present that in the class. So I focused on finalizing my clusters and their visualization. We did a team meeting and decided whose clusters were best to be presented in the final presentation. We discussed our clustering results and found out that our team member’s Fahad features  gave us the best clustering results from our 3. So, we decided to go with his clustering for final result. Meanwhile, I also  performed clustering on his feature set. We found out that my and his features were more or less the same.
+Validation and Visualization
+To validate clustering quality, I used  PCA to project the data into two dimensions. The clusters appeared well-separated with minimal overlap. Additionally, temporal analysis of consumption patterns showed:
+Clear seasonal trends in normal and high-consumption clusters
+Near-flat patterns in sparse and inactive clusters
+These results confirmed both statistical and behavioral validity of the clustering.
+Cluster Interpretation and Documentation
+A detailed analysis of each cluster was completed to understand their real-world meaning.
+Cluster 0: Intermittent usage (e.g., holiday homes, seasonal occupancy)
+Cluster 1: Typical residential consumers with regular patterns
+Cluster 2: Near-zero usage, likely inactive or faulty meters
+Cluster 3: High-consumption households (e.g., electric heating, EV usage)
+
+Data Preparation for Forecasting
+I reshaped the dataset from wide to long format, creating one row per household per day. Additional time-based features were generated, including date, day of week, month, and cluster labels. This structure enabled efficient model training.
+Lag Feature Design
+Lag features were designed to capture temporal dependencies in consumption patterns. A balanced set of lags was selected to represent short-term, weekly, and longer-term trends:
+Short-term: 1–3 days
+Weekly: 7 and 14 days
+Monthly: 28 days
+Rows with missing lag values were removed, resulting in a large and clean training dataset suitable for modeling.
+Key Achievements
+Completed clustering visualization and documentation
+Developed meaningful interpretations for all clusters
+Implemented data reshaping for forecasting
+Finalized lag feature design for model training
+Finalized final clustering presentation for class
+
+Challenges
+Managing memory during large-scale data reshaping.
+Selecting an optimal set of lag features while balancing complexity and performance.

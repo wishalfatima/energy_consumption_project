@@ -1,0 +1,18 @@
+
+CLEANING REPORT
+===============
+Date: 2026-03-11 15:16
+
+Original data shape: (17547, 365)
+Cleaned data shape: (17547, 365)
+
+Issues handled:
+- Negative values: None found
+- Missing values: None found
+- Extreme outliers: Capped at 99.9th percentile (191.52)
+
+Final statistics:
+- Min value: 0.00
+- Max value: 191.52
+- Mean: 9.12
+- Median: 6.13

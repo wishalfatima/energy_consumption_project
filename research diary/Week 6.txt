@@ -1,0 +1,15 @@
+Week 6: Forecasting Cluster Model
+This week focused on implementing cluster-based forecasting models, evaluating their performance against the global baseline, and exploring potential improvements. I visualized the forecasting results across all four models to compare their performance and understand the characteristics of each cluster.
+Model Training
+Four separate LightGBM models were trained, one for each cluster, using only the data from households within that cluster. The same feature set was used as in the global model, with slight adjustments to prevent overfitting on smaller datasets. All models were successfully trained and validated, with performance varying by cluster:
+Low-consumption clusters achieved very low error due to stable patterns
+High-consumption cluster remained the most challenging due to high variability
+Prediction and Evaluation
+Each cluster model was used to generate predictions for its corresponding households in 2024. The results were evaluated using per-household MAE and compared with the global model.
+Global MAE: 5.32 kWh/day
+Cluster-based MAE: 5.27 kWh/day
+The cluster-based approach achieved a small but consistent improvement, particularly for the majority cluster. However, gains were limited due to challenges in modeling high-consumption households.
+Key Achievements
+Successfully trained and evaluated cluster-based forecasting models
+Identified key predictive features and seasonal dominance
+Demonstrated improvement over the global baseline

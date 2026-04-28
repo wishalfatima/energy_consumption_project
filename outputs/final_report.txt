@@ -1,0 +1,27 @@
+
+FORECASTING PROJECT - FINAL REPORT
+
+
+DATA SUMMARY:
+- Total households: 17,547
+- Training data: 2023 (365 days)
+- Testing data: 2024 (366 days, leap year)
+- Number of clusters: 4
+
+CLUSTER DISTRIBUTION:
+         mae_global  mae_cluster  n_households
+cluster                                       
+0          1.768259     1.673156           444
+1          3.222635     3.154127         14620
+2          0.691033     0.715135            66
+3         18.798758    18.860407          2417
+
+MAE RESULTS:
+- Global Model (1 model):   5.3218
+- Cluster Model (4 models): 5.2709
+- Improvement:              +0.0509 (+0.96%)
+
+CONCLUSION:
+The Cluster model performs better by 0.0509 MAE points.
+
+

@@ -1,0 +1,14 @@
+Feature,Description
+mean_consumption,Average daily energy consumption
+std_consumption,Standard deviation (volatility of consumption)
+max_consumption,Maximum consumption on a single day
+min_consumption,Minimum consumption on a single day
+range_consumption,Range (max - min) of consumption
+cv,Coefficient of variation (std/mean) - normalized volatility
+skewness,Skewness of consumption distribution (asymmetry)
+zero_days,Number of days with zero consumption
+zero_percentage,Percentage of days with zero consumption
+p90,90th percentile of consumption
+p10,10th percentile of consumption
+mean_consumption_log,Log-transformed average consumption (handles skewness)
+max_consumption_log,Log-transformed maximum consumption
