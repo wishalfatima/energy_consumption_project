@@ -479,33 +479,6 @@ Although the improvement in overall MAE is relatively small, the results demonst
 
 Rather than assuming every household follows the same consumption process, clustering allows models to specialize in groups with similar behavior.
 
----
-
-# Repository Structure
-
-```text
-energy_consumption_project/
-│
-├── data/
-│   └── Raw datasets
-│
-├── notebooks/
-│   ├── Data exploration
-│   ├── Feature engineering
-│   ├── Clustering
-│   ├── Forecasting
-│   └── Forecasting improvement experiments
-│
-├── outputs/
-│   ├── Cluster assignments
-│   ├── Clustering results
-│   ├── Forecasting results
-│   ├── Model summaries
-│   ├── Evaluation files
-│   └── Visualizations
-│
-└── README.md
-```
 
 ---
 
