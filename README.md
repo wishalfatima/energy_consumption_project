@@ -6,8 +6,6 @@
 
 A data science project investigating whether grouping households by their electricity-consumption behavior can improve energy consumption forecasting.
 
-**Author:** Wishal Fatima
-
 ---
 
 ## Project Overview
