@@ -1,539 +1,852 @@
-# Household Energy Consumption Clustering & Forecasting
+Yes — I understand now. **This is your COURSE PROJECT, not your P1 project.** I was mixing the two projects, which is why my previous README suggestions were going in the wrong direction. Sorry about that.
 
-A machine learning project for analyzing household electricity consumption patterns, clustering households based on their consumption behavior, and evaluating whether cluster-specific forecasting models improve energy consumption predictions.
+The repository you showed:
+
+**`energy_consumption_project`**
+
+is your **course project on household energy consumption clustering and forecasting**. It is **not** the P1 project involving OFMVC, FMVC, kShape, weather views, etc.
+
+I checked the course-project report you uploaded. The actual project is about:
+
+* ~17,547 households
+* 2023 → training
+* 2024 → evaluation
+* Feature engineering with **13 features**
+* Household clustering
+* **K-Means** clustering
+* Cluster interpretation
+* **LightGBM** global vs cluster-specific forecasting
+* MAE evaluation
+* XGBoost improvement attempt
+* Recursive LightGBM improvement attempt
+
+The report confirms, for example, that the dataset has 17,547 households, 365 days in 2023 and 366 days in 2024. 
+
+And your final course-project work includes the four clusters: Sparse/Low Activity, Normal Consumers, Inactive/Irregular, and High Consumers. 
+
+So **forget everything I said about putting the P1 OFMVC project into this repository.**
+
+---
+
+# What you should do now
+
+You already have this structure:
+
+```text
+energy_consumption_project/
+│
+├── data/
+│
+├── notebooks/
+│
+├── outputs/
+│
+└── README.md
+```
+
+### Keep this structure.
+
+You **do NOT need to create**:
+
+```text
+Energy_Project/
+Energy_Project_updated/
+UCI_Phase1/
+MVC-Time-series-Forecasting/
+O(F)MVC/
+FMVC/
+kShape/
+```
+
+Those belong to your **P1 project**, not this course project.
+
+---
+
+# What I recommend changing
+
+Your repository currently contains a lot of files inside `outputs/`. That's okay for a course-project repository, but I would clean it up somewhat.
+
+### Keep
+
+Your important final outputs:
+
+```text
+outputs/
+├── cluster_assignments.csv
+├── cluster_results.csv
+├── final_results.csv
+├── optimized_results.csv
+├── cluster_models_summary.csv
+├── cluster_recursive_results.csv
+├── global_recursive_results.csv
+│
+├── cluster_patterns.png
+├── cluster_pca_final.png
+├── final_comparison.png
+├── optimal_k_analysis.png
+├── clustering_features_bar_charts.png
+├── clustering_features_grouped_bars.png
+├── clustering_features_horizontal_bars.png
+├── global_recursive_results.png
+├── global_recursive_sample_predictions.png
+├── per_cluster_mae_recursive.png
+│
+└── final_report.txt
+```
+
+You don't necessarily need every intermediate `.npy`, `.pkl`, and training dataset output in the public repository.
+
+### I would remove from GitHub
+
+Things such as:
+
+```text
+.ipynb_checkpoints/
+```
+
+Definitely remove that.
+
+Also, unless you specifically want to provide the trained models:
+
+```text
+cluster_models.pkl
+global_model.pkl
+kmeans_model.pkl
+feat_scaler.pkl
+```
+
+can be excluded.
+
+And large intermediate files such as:
+
+```text
+X_train.csv
+X_test.csv
+```
+
+don't need to be in GitHub if they can be regenerated.
+
+---
+
+# Most importantly: update the README
+
+Below is the **README specifically for your COURSE PROJECT**.
+
+You can copy-paste the whole thing directly into:
+
+```text
+README.md
+```
+
+---
+
+````markdown
+# Household Energy Consumption Clustering and Forecasting
+
+## Course Project
+
+A data science project investigating whether grouping households by their electricity-consumption behavior can improve energy consumption forecasting.
+
+**Author:** Wishal Fatima
 
 ---
 
 ## Project Overview
 
-Energy consumption forecasting is important for energy management, planning, and understanding consumer behavior.
+Energy consumption forecasting is important for energy management, demand planning, and efficient resource utilization.
 
-This project investigates two connected questions:
+This project analyzes daily electricity consumption data from approximately **17,547 households** in Austria. The main objective is to understand whether households with similar consumption behavior can be grouped into meaningful clusters and whether **cluster-specific forecasting models** can improve prediction accuracy compared with a single global forecasting model.
 
-1. **Can households be grouped into meaningful consumption-behavior clusters?**
-2. **Can cluster-specific forecasting models improve prediction accuracy compared with a single global forecasting model?**
+The project consists of two main components:
 
-The project uses daily electricity consumption data from approximately **17,547 households** in Austria.
+1. **Household clustering** based on consumption behavior
+2. **Energy consumption forecasting** using global and cluster-specific machine learning models
 
-The workflow consists of:
+The overall workflow is:
 
 ```text
 2023 Electricity Consumption
-          │
-          ▼
-   Data Exploration
-          │
-          ▼
-  Feature Engineering
-          │
-          ▼
-   Feature Selection
-          │
-          ▼
-      K-Means
-     Clustering
-          │
-          ▼
- Cluster Interpretation
-          │
-          ▼
- ┌───────────────────────┐
- │                       │
- ▼                       ▼
-Global Forecasting   Cluster Forecasting
- │                       │
- └───────────┬───────────┘
-             ▼
-       2024 Evaluation
-             │
-             ▼
-        MAE Comparison
+            │
+            ▼
+   Data Exploration & Cleaning
+            │
+            ▼
+     Feature Engineering
+            │
+            ▼
+     Feature Normalization
+            │
+            ▼
+        K-Means Clustering
+            │
+            ▼
+     Household Cluster Profiles
+            │
+            ├───────────────┐
+            ▼               ▼
+     Global LightGBM   Cluster LightGBM
+            │               │
+            └───────┬───────┘
+                    ▼
+             2024 Forecasts
+                    │
+                    ▼
+              MAE Evaluation
+                    │
+                    ▼
+       Global vs Cluster Models
+````
+
+---
+
+## Research Questions
+
+The project investigates the following questions:
 
+* Can households be grouped into meaningful consumption-based clusters?
+* What characteristics distinguish the identified household groups?
+* Does training separate forecasting models for different clusters improve forecasting accuracy?
+* How does a cluster-based forecasting approach compare with a single global forecasting model?
+* Can additional feature engineering and alternative forecasting strategies further improve performance?
 
+---
 
+## Dataset
 
-Dataset
+The dataset contains daily electricity consumption for approximately **17,547 households**.
 
-The dataset contains daily electricity consumption for 17,547 households.
+Two years of data are used:
 
-Property	Value
-Households	17,547
-Training period	2023
-Evaluation period	2024
-2023 observations	365 days
-2024 observations	366 days
-Measurement	Daily electricity consumption
-Unit	kWh
+| Dataset | Purpose                 | Time Period |
+| ------- | ----------------------- | ----------: |
+| 2023    | Training and clustering |    365 days |
+| 2024    | Forecasting evaluation  |    366 days |
 
-The 2023 data is used for feature engineering, clustering, and model training, while 2024 is reserved for forecasting evaluation.
+### Dataset Characteristics
 
-The 2024 dataset is therefore not used to determine the household clusters.
+| Property          |                         Value |
+| ----------------- | ----------------------------: |
+| Households        |                        17,547 |
+| 2023 observations |        365 days per household |
+| 2024 observations |        366 days per household |
+| Data frequency    |                         Daily |
+| Measurement       | Electricity consumption (kWh) |
+| Training year     |                          2023 |
+| Evaluation year   |                          2024 |
 
-1. Exploratory Data Analysis
+The 2024 data is reserved for evaluation and is not used to create the clustering features.
 
-The first stage investigates the distribution and characteristics of household electricity consumption.
+The raw dataset is not included in this repository because of its size.
 
-The consumption data is strongly right-skewed.
+---
 
-Typical daily consumption is concentrated in the lower range, while a small number of households show extremely high values.
+## Data Exploration
 
-Key statistics
-Statistic	Value
-Mean daily consumption	~10.5 kWh
-Median	~7.4 kWh
-25th percentile	~3.6 kWh
-75th percentile	~13.4 kWh
-99th percentile	57.36 kWh
-Maximum	1,051.74 kWh
-Minimum	0 kWh
+Initial analysis was performed to understand the distribution and quality of the electricity consumption data.
 
-The extreme maximum highlights the presence of highly unusual or high-consumption households.
+The consumption distribution is strongly right-skewed. Most daily observations are relatively low, while a small number of observations have very high consumption values.
 
-2. Feature Engineering
+Some important statistics from the dataset include:
 
-Instead of clustering directly on 365 daily consumption values, statistical features were extracted from each household's 2023 consumption profile.
+| Statistic                |        Value |
+| ------------------------ | -----------: |
+| Mean daily consumption   |    ~10.5 kWh |
+| Median daily consumption |     ~7.4 kWh |
+| 25th percentile          |     ~3.6 kWh |
+| 75th percentile          |    ~13.4 kWh |
+| 99th percentile          |    57.36 kWh |
+| Maximum recorded value   | 1,051.74 kWh |
+| Minimum                  |        0 kWh |
 
-A total of 13 features were created.
+This analysis revealed substantial differences between households in terms of average consumption, variability, inactivity, and extreme consumption behavior.
 
-Original Features
-Feature	Description
-mean_consumption	Average daily consumption
-std_consumption	Day-to-day variability
-max_consumption	Highest daily consumption
-min_consumption	Lowest daily consumption
-range_consumption	Difference between maximum and minimum
-cv	Coefficient of variation
-skewness	Distribution asymmetry
-zero_days	Number of zero-consumption days
-zero_percentage	Percentage of zero-consumption days
-p90	90th percentile
-p10	10th percentile
+---
 
-Two additional log-transformed features were created:
+# Feature Engineering
 
-Feature	Purpose
-mean_consumption_log	Reduces right-skew in mean consumption
-max_consumption_log	Reduces right-skew in maximum consumption
+Household-level features were extracted from the 2023 consumption data.
 
-This resulted in 13 features per household.
+The final feature set contains **13 features**.
 
-3. Data Cleaning
+### Original Features
 
-Several data-quality issues were investigated before clustering.
+| Feature             | Description                                        |
+| ------------------- | -------------------------------------------------- |
+| `mean_consumption`  | Average daily electricity consumption              |
+| `std_consumption`   | Standard deviation of daily consumption            |
+| `max_consumption`   | Maximum daily consumption                          |
+| `min_consumption`   | Minimum daily consumption                          |
+| `range_consumption` | Difference between maximum and minimum consumption |
+| `cv`                | Coefficient of variation                           |
+| `skewness`          | Asymmetry of the consumption distribution          |
+| `zero_days`         | Number of days with zero consumption               |
+| `zero_percentage`   | Percentage of zero-consumption days                |
+| `p90`               | 90th percentile of consumption                     |
+| `p10`               | 10th percentile of consumption                     |
 
-Constant-zero households
+Two additional log-transformed features were created to reduce the influence of highly skewed consumption values:
 
-A total of 154 households had zero consumption throughout the entire year.
+| Feature                | Description                 |
+| ---------------------- | --------------------------- |
+| `mean_consumption_log` | `log(1 + mean_consumption)` |
+| `max_consumption_log`  | `log(1 + max_consumption)`  |
 
-These households resulted in undefined statistical measures such as skewness and coefficient of variation.
+This resulted in a total of **13 clustering features**.
 
-Missing feature values were handled through mean imputation after standardization.
+---
 
-After preprocessing:
+## Data Cleaning
 
-Check	Before	After
-NaN in skewness	154	0
-NaN in other features	0	0
-Total NaN	154	0
-Infinite values	0	0
+Several data-quality issues were addressed before clustering.
 
-The final feature matrix contained:
+### Constant households
 
-17,547 households × 6 selected clustering features
-4. Feature Selection
+A total of **154 households** had constant zero consumption throughout 2023.
 
-Using every available feature can introduce redundancy and correlated information.
+These households produce undefined values for statistics such as coefficient of variation and skewness.
 
-Therefore, six features were selected for clustering:
+Missing skewness values were therefore handled through mean imputation after standardization.
 
-mean_consumption_log
-std_consumption
-cv
-zero_percentage
-skewness
-range_consumption
+### Skewness transformation
 
-The selected features capture:
+Consumption-related features are strongly right-skewed.
 
-consumption level
-variability
-relative volatility
-inactivity
-distribution shape
-overall consumption range
+The transformations
 
-All clustering features were standardized using StandardScaler.
+```text
+log(1 + mean_consumption)
+log(1 + max_consumption)
+```
 
-5. Household Clustering
-K-Means
+were used to reduce the influence of extreme values while preserving the ordering of households.
 
-K-Means was selected as the main clustering algorithm because it is computationally efficient and suitable for clustering a large number of households.
+### Feature normalization
 
-The number of clusters was evaluated from:
+The clustering features have different units and scales.
 
-k = 2 ... 14
+Therefore, `StandardScaler` was applied before clustering so that features with larger numerical ranges would not dominate the distance calculations.
 
-Three metrics were considered:
+---
 
-Inertia / Elbow Method
-Silhouette Score
-Davies-Bouldin Index
-Optimal number of clusters
+# Household Clustering
 
-The analysis selected:
+## K-Means
 
-k = 4
+K-Means clustering was used to group households according to their consumption characteristics.
 
-The choice was supported by the combination of the three clustering metrics.
+The clustering was performed on the standardized household-level feature matrix.
 
-k	Inertia	Silhouette	Davies-Bouldin
-2	80,348	0.4650	0.9958
-3	57,851	0.5414	0.8541
-4	51,437	0.5456	0.7551
-5	47,288	0.2295	1.1660
-6	35,283	0.2957	0.9702
-7	38,416	0.2376	1.0548
-8	36,591	0.2222	1.1205
-9	26,621	0.2184	1.0383
-10	27,131	0.2316	1.1347
-11	22,967	0.2295	1.0255
-12	22,287	0.2205	1.0188
-13	20,235	0.2542	0.9984
-14	18,736	0.2156	1.0194
+The optimal number of clusters was investigated using clustering diagnostics such as the elbow analysis.
 
-The strongest combination of separation and compactness occurred at k = 4.
+The final solution contained **four meaningful household groups**.
 
-6. Final Cluster Profiles
+---
 
-The final K-Means model produced four household groups.
+# Cluster Profiles
 
-Cluster	Households	Share	Interpretation
-0	444	2.5%	Sparse / Low Activity
-1	14,620	83.3%	Normal Consumers
-2	66	0.4%	Ghost / Inactive Meters
-3	2,417	13.8%	High Consumers
-Cluster 0 — Sparse / Low Activity
+The resulting clusters represent substantially different consumption behaviors.
 
-Small group of households with low and irregular consumption and many zero-consumption days.
+| Cluster | Profile               |  Share | Main Characteristics                          |
+| ------: | --------------------- | -----: | --------------------------------------------- |
+|       0 | Sparse / Low Activity |  ~2.5% | Low and irregular consumption, many zero days |
+|       1 | Normal Consumers      | ~83.3% | Moderate, stable, and consistent consumption  |
+|       2 | Inactive / Irregular  |  ~0.4% | Very low activity with many zero days         |
+|       3 | High Consumers        | ~13.8% | High consumption and strong variability       |
 
-These households may represent intermittently occupied properties or low-activity meters.
+### Cluster 0 — Sparse / Low Activity
 
-Cluster 1 — Normal Consumers
+This group contains households with relatively low and irregular consumption.
 
-The dominant cluster, containing approximately 83% of households.
+A large proportion of their days have zero consumption, suggesting intermittent activity.
 
-These households have moderate and relatively stable consumption and represent the typical consumption pattern in the dataset.
+---
 
-Cluster 2 — Ghost / Inactive Meters
+### Cluster 1 — Normal Consumers
 
-A very small group characterized by extremely low consumption and a high proportion of zero days.
+This is by far the largest group.
 
-Cluster 3 — High Consumers
+These households have moderate and relatively stable consumption patterns, making them the most representative group in the dataset.
 
-Households with significantly higher consumption and substantially greater variability.
+---
 
-This group benefits from dedicated forecasting models because its behavior differs considerably from the majority of households.
+### Cluster 2 — Inactive / Irregular
 
-7. Forecasting
+This is the smallest cluster.
 
-After clustering, the project evaluates whether separate forecasting models for each cluster can improve prediction accuracy.
+These households have extremely low and irregular consumption with many zero-consumption days.
 
-Two forecasting strategies were investigated:
+Their unusual behavior may represent inactive properties, irregularly used meters, or other special cases.
 
-Global forecasting
-Cluster-based forecasting
-Feature Engineering for Forecasting
+---
 
-The consumption data was converted from wide format into a time-series format.
+### Cluster 3 — High Consumers
 
-Calendar features:
+This group contains households with significantly higher consumption and greater variability.
 
-day_of_year
-day_of_week
-month
-weekend
+The higher variability makes these households more difficult to forecast accurately and motivates the use of dedicated cluster-specific forecasting models.
 
-Lag features:
+---
 
-lag_1
-lag_2
-lag_3
-lag_7
-lag_14
-lag_28
+# Forecasting
 
-These features capture short-term, weekly, and longer-term consumption patterns.
+The forecasting stage evaluates whether clustering households improves prediction accuracy.
 
-8. Global Forecasting Model
+Two main forecasting approaches were compared:
 
-A single LightGBM model was trained using all households.
+1. **Global forecasting**
+2. **Cluster-based forecasting**
 
-The model learns general electricity consumption patterns across the complete population.
+---
 
-Feature importance showed that:
+## Global Forecasting Model
 
-day_of_year was highly influential
-lag_1 was an important short-term predictor
-lag_7 and lag_14 captured weekly patterns
-weekend contributed comparatively little because weekly behavior was already represented by day_of_week
-9. Cluster-Based Forecasting
+A single **LightGBM** model was trained using data from all households.
 
-Instead of using one model for every household, a separate LightGBM model was trained for each cluster.
+The model learns general consumption patterns shared across the population.
 
+The training data comes from 2023, while the final evaluation is performed on 2024.
+
+---
+
+## Cluster-Based Forecasting
+
+Instead of training one model for every household, one LightGBM model was trained for each cluster.
+
+Therefore:
+
+```text
 Cluster 0 → LightGBM Model 0
 Cluster 1 → LightGBM Model 1
 Cluster 2 → LightGBM Model 2
 Cluster 3 → LightGBM Model 3
+```
 
-All models use the same forecasting methodology so that the comparison reflects the effect of clustering rather than differences in model architecture.
+Each model was trained only on households belonging to its corresponding cluster.
 
-Cluster models
-Cluster	Households	Model
-0	444	Dedicated LightGBM
-1	14,620	Dedicated LightGBM
-2	66	Dedicated LightGBM
-3	2,417	Dedicated LightGBM
+This allows the forecasting model to specialize in the consumption behavior of a particular household group.
 
-No cluster required fallback to the global model.
+---
 
-10. Forecasting Evaluation
+# Forecasting Features
 
-The models were evaluated on the complete 2024 dataset.
+The forecasting models use historical consumption together with calendar information.
 
-The evaluation metric is:
+The main feature set includes:
 
-Mean Absolute Error (MAE)
-MAE=
-n
-1
-	​
+### Calendar Features
 
-i=1
-∑
-n
-	​
+* `day_of_year`
+* `day_of_week`
+* `month`
+* `weekend`
 
-∣y
-i
-	​
+### Lag Features
 
-−
-y
-^
-	​
+* `lag_1`
+* `lag_2`
+* `lag_3`
+* `lag_7`
+* `lag_14`
+* `lag_28`
 
-i
-	​
+These features capture short-term, weekly, and longer-term consumption patterns.
 
-∣
+---
 
-Lower MAE indicates better forecasting accuracy.
+# Evaluation
 
-11. Baseline Forecasting Results
+Forecasting performance was evaluated using:
 
-The initial comparison produced:
+## Mean Absolute Error (MAE)
 
-Model	MAE
-Global LightGBM	5.3218
-Cluster-based LightGBM	5.2709
+MAE is calculated as:
 
-The cluster-based approach therefore achieved a small improvement over the global model.
+```text
+MAE = mean(|actual - predicted|)
+```
 
-This suggests that separating households according to consumption behavior can help the forecasting model learn more homogeneous patterns.
+A lower MAE indicates better forecasting performance.
 
-12. Forecasting Improvement Experiments
+The evaluation compares predicted and actual electricity consumption over all **366 days of 2024**.
 
-Two additional approaches were investigated.
+---
 
-Experiment 1 — XGBoost
+# Global vs Cluster-Based Forecasting
 
-An XGBoost model was tested with additional features including:
+The initial forecasting experiment produced:
 
-rolling mean
-weekly difference
-cyclical day-of-year encoding
+| Approach               |    MAE |
+| ---------------------- | -----: |
+| Global LightGBM        | 5.3218 |
+| Cluster-based LightGBM | 5.2709 |
 
-The experiment used a sampled training set because of the large dataset size.
+The cluster-based approach therefore achieved a lower overall MAE than the global model.
 
-Result
-Model	MAE
-XGBoost + Extended Features	6.1584
+### Improvement
 
-This was worse than the LightGBM baseline, so the approach was not selected as the final model.
+```text
+Improvement = 5.3218 - 5.2709
+            = 0.0509 MAE
+```
 
-13. Recursive LightGBM Forecasting
+This corresponds to an improvement of approximately:
 
-A recursive forecasting strategy was then investigated.
+```text
+0.96%
+```
 
-Instead of predicting all future values independently, predictions are generated sequentially:
+The result suggests that grouping households according to consumption behavior can provide a small but measurable forecasting benefit.
 
-2023 history
-     ↓
-Predict Day 1
-     ↓
+---
+
+# Per-Cluster Forecasting Performance
+
+The cluster-specific models showed different forecasting difficulties.
+
+| Cluster | Profile               | Validation MAE |
+| ------: | --------------------- | -------------: |
+|       0 | Sparse / Low Activity |         0.4225 |
+|       1 | Normal Consumers      |         1.5772 |
+|       2 | Inactive / Irregular  |         0.2778 |
+|       3 | High Consumers        |         4.9902 |
+
+The low MAE of Clusters 0 and 2 is partly explained by their near-zero consumption levels.
+
+Cluster 3 is more difficult to forecast because high-consumption households also exhibit considerably greater variability.
+
+---
+
+# Forecasting Improvement Experiments
+
+After the initial LightGBM results, two additional approaches were investigated.
+
+## 1. XGBoost with Extended Features
+
+XGBoost was tested using an expanded feature set including:
+
+* rolling averages
+* weekly differences
+* cyclical seasonal features
+* `day_of_year` sine/cosine encoding
+
+The experiment used a sampled training dataset because of the large number of observations.
+
+### Result
+
+| Model                       |    MAE |
+| --------------------------- | -----: |
+| XGBoost + extended features | 6.1584 |
+
+This was worse than the baseline LightGBM approach.
+
+Therefore, the additional feature engineering and XGBoost model did not improve the final forecasting performance.
+
+---
+
+# 2. Recursive LightGBM Forecasting
+
+A recursive forecasting strategy was also investigated.
+
+Instead of predicting all future values independently, the model predicts one day at a time.
+
+The predicted value is then added to the history and used to generate features for the next prediction.
+
+The process is repeated for all 366 days of 2024.
+
+### Recursive forecasting process
+
+```text
+Last 60 days of 2023
+        │
+        ▼
+Generate features
+        │
+        ▼
+Predict next day
+        │
+        ▼
 Add prediction to history
-     ↓
-Predict Day 2
-     ↓
-Add prediction to history
-     ↓
-...
-     ↓
-Predict Day 366
+        │
+        ▼
+Generate next features
+        │
+        ▼
+Repeat for 366 days
+```
 
-A rolling history of the last 60 days was used.
+The recursive model used 16 features including:
 
-The recursive model used:
+* calendar variables
+* lag features
+* rolling means
+* trend features
 
-Calendar features
-day_of_year
-day_of_week
-month
-weekend
-Lag features
-1
-2
-3
-7
-14
-28
-30 days
-Rolling features
-7-day mean
-14-day mean
-30-day mean
-Trend features
-diff_7
-trend_7
+This experiment was designed to investigate whether dynamically updating the history could improve long-horizon forecasting.
 
-Predictions were clipped to non-negative values.
+---
 
-14. Main Findings
-Finding 1 — Household behavior can be meaningfully clustered
+# Key Findings
 
-K-Means identified four distinct consumption groups ranging from inactive households to high-consuming households.
+### 1. Meaningful household groups can be identified
 
-Finding 2 — Cluster-specific forecasting can improve accuracy
+K-Means successfully separated households into groups with substantially different consumption characteristics.
 
-The cluster-based LightGBM model achieved:
+The largest group represents normal consumers, while smaller groups capture sparse, inactive, and high-consumption households.
 
-5.2709 MAE
+### 2. Cluster-specific forecasting can improve performance
 
-compared with:
+The cluster-based LightGBM approach achieved a lower MAE than the single global model:
 
-5.3218 MAE
+```text
+Global LightGBM       → 5.3218 MAE
+Cluster LightGBM     → 5.2709 MAE
+```
 
-for the global model.
+This supports the hypothesis that households with different consumption behaviors can benefit from specialized forecasting models.
 
-Finding 3 — Household clusters have very different forecasting difficulty
+### 3. Different clusters have different forecasting difficulty
 
-The normal-consumer cluster is relatively stable, while high-consumption households exhibit substantially greater variability.
+High-consumption households were considerably harder to predict than low-activity households.
 
-Finding 4 — XGBoost did not improve the baseline
+This demonstrates that aggregate forecasting performance can hide substantial differences between household groups.
 
-The tested XGBoost configuration achieved an MAE of 6.1584, which was worse than the LightGBM baseline.
+### 4. XGBoost did not improve the baseline
 
-Finding 5 — Recursive forecasting is promising
+The XGBoost experiment achieved an MAE of 6.1584, which was worse than the original LightGBM approaches.
 
-Recursive forecasting allows predictions to be incorporated into subsequent predictions and provides a more dynamic representation of future consumption.
+This demonstrates that adding more features or using a different gradient-boosting algorithm does not automatically improve forecasting performance.
 
-15. Project Structure
+### 5. Cluster-based modeling is promising
+
+Although the improvement in overall MAE is relatively small, the results demonstrate the potential value of segmentation before forecasting.
+
+Rather than assuming every household follows the same consumption process, clustering allows models to specialize in groups with similar behavior.
+
+---
+
+# Repository Structure
+
+```text
 energy_consumption_project/
 │
 ├── data/
-│   └── README.md
+│   └── Raw datasets
 │
 ├── notebooks/
-│   ├── 01_data_analysis.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   ├── 03_clustering.ipynb
-│   ├── 04_forecasting.ipynb
-│   └── 05_forecasting_improved.ipynb
+│   ├── Data exploration
+│   ├── Feature engineering
+│   ├── Clustering
+│   ├── Forecasting
+│   └── Forecasting improvement experiments
 │
 ├── outputs/
-│   ├── clustering/
-│   ├── forecasting/
-│   └── figures/
+│   ├── Cluster assignments
+│   ├── Clustering results
+│   ├── Forecasting results
+│   ├── Model summaries
+│   ├── Evaluation files
+│   └── Visualizations
 │
-├── README.md
-└── requirements.txt
-16. Technologies
-Python
-Pandas
-NumPy
-Scikit-learn
-LightGBM
-XGBoost
-Matplotlib
-Seaborn
-Jupyter Notebook
-17. Reproducibility
-1. Clone the repository
-git clone https://github.com/wishalfatima/energy_consumption_project.git
-cd energy_consumption_project
-2. Install dependencies
+└── README.md
+```
+
+---
+
+# Main Outputs
+
+The `outputs/` directory contains the main results generated during the project.
+
+Examples include:
+
+```text
+cluster_assignments.csv
+cluster_results.csv
+final_results.csv
+optimized_results.csv
+
+cluster_patterns.png
+cluster_pca_final.png
+final_comparison.png
+optimal_k_analysis.png
+
+clustering_features_bar_charts.png
+clustering_features_grouped_bars.png
+clustering_features_horizontal_bars.png
+
+global_recursive_results.png
+per_cluster_mae_recursive.png
+```
+
+The output files provide both numerical results and visualizations of the clustering and forecasting experiments.
+
+---
+
+# Reproducibility
+
+## Requirements
+
+The project uses Python and common data science and machine learning libraries.
+
+Main dependencies include:
+
+```text
+Python 3.x
+
+pandas
+numpy
+scikit-learn
+lightgbm
+xgboost
+matplotlib
+seaborn
+scipy
+jupyter
+```
+
+Install the dependencies using:
+
+```bash
 pip install -r requirements.txt
-3. Add the dataset
+```
 
-The raw electricity consumption data is not included in this repository because of its size and data-sharing restrictions.
+If a `requirements.txt` file is not yet present, it should be added to the repository.
 
-Place the 2023 and 2024 datasets inside:
+---
 
+## Running the Project
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/wishalfatima/energy_consumption_project.git
+```
+
+2. Enter the project directory:
+
+```bash
+cd energy_consumption_project
+```
+
+3. Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Place the required datasets in the `data/` directory.
+
+5. Run the notebooks in the following general order:
+
+```text
+1. Data Exploration
+        ↓
+2. Feature Engineering
+        ↓
+3. Clustering
+        ↓
+4. Cluster Analysis
+        ↓
+5. Global Forecasting
+        ↓
+6. Cluster-Based Forecasting
+        ↓
+7. Forecasting Improvements
+```
+
+---
+
+# Data Availability
+
+The raw electricity consumption dataset is not included in this repository because of its size and data-access restrictions.
+
+The project was developed using the electricity consumption data provided for the course project.
+
+If you have access to the original dataset, place the required files inside:
+
+```text
 data/
-4. Run the notebooks
+```
 
-Run the notebooks in the following order:
+before running the notebooks.
 
-01_data_analysis.ipynb
-        ↓
-02_feature_engineering.ipynb
-        ↓
-03_clustering.ipynb
-        ↓
-04_forecasting.ipynb
-        ↓
-05_forecasting_improved.ipynb
-18. Outputs
+---
 
-The project produces:
+# Limitations
 
-consumption distribution visualizations
-feature statistics
-feature correlation analysis
-optimal-k analysis
-PCA cluster visualization
-cluster profiles
-cluster assignments
-feature importance plots
-global forecasting results
-cluster forecasting results
-recursive forecasting results
-MAE comparisons
-19. Key Result
+Several limitations should be considered when interpreting the results.
 
-The central finding of the project is:
+### 1. Household clustering is based on 2023 behavior
 
-Grouping households according to their consumption behavior and training dedicated forecasting models can provide better forecasting accuracy than using a single global model.
+The clusters are created using historical consumption characteristics from 2023.
 
-The initial cluster-based LightGBM model improved MAE from:
+Changes in household behavior during 2024 are therefore not incorporated into the clustering stage.
 
-Global:   5.3218
-Cluster:  5.2709
+### 2. Cluster-based improvement is relatively small
 
-showing that localized forecasting can capture differences between household consumption patterns.
+The overall improvement from the initial global model to the cluster-based model is modest.
 
-Author
+Therefore, clustering should be viewed as a potentially useful segmentation strategy rather than a guaranteed large improvement.
 
-Wishal Fatima
+### 3. Small clusters
+
+Some clusters contain very few households.
+
+Their low MAE values should therefore be interpreted carefully because their behavior may not be representative of the overall population.
+
+### 4. Extreme consumption values
+
+The dataset contains a small number of extremely high consumption observations.
+
+Although feature transformations and standardization were used during clustering, these extreme values can still influence the forecasting models.
+
+---
+
+# Conclusion
+
+This project demonstrates a complete pipeline for household electricity consumption analysis, clustering, and forecasting.
+
+The main finding is that **cluster-based forecasting slightly outperformed a single global LightGBM model**, with MAE improving from:
+
+```text
+5.3218 → 5.2709
+```
+
+The clustering analysis also revealed four distinct household behavior profiles:
+
+* Sparse / Low Activity
+* Normal Consumers
+* Inactive / Irregular
+* High Consumers
+
+The results suggest that electricity consumers are heterogeneous and that recognizing these behavioral differences can be useful for forecasting.
+
+At the same time, the experiments show that more complex models do not necessarily produce better results. The XGBoost experiment with additional features performed worse than the baseline LightGBM approach.
+
+Overall, the project provides an end-to-end example of how **data exploration, behavioral feature engineering, clustering, and machine learning forecasting** can be combined to analyze household energy consumption.
+
+---
+
+## Technologies
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* LightGBM
+* XGBoost
+* Matplotlib
+* Seaborn
+* Jupyter Notebook
+
+---
+
+## Author
+
+**Wishal Fatima**
 
 University of Vienna
 
-Computer Science
+Course Project — Household Energy Consumption Clustering and Forecasting
 
-Project Context
-
-This project was developed as part of a university course project using real-world household electricity consumption data.
-
-
----
+```
 
